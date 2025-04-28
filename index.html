@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animated Landing Page with Posts</title>
+    <style>
+      /* Reset default styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        font-family: "Poppins", sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      /* Landing Section */
+      .landing {
+        height: 100vh;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://source.unsplash.com/random/1600x900?nature,water")
+            no-repeat center center/cover;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      .content {
+        color: white;
+      }
+
+      .content h1 {
+        font-size: 3rem;
+        animation: slideInDown 1s ease-out;
+      }
+
+      .content p {
+        font-size: 1.5rem;
+        margin: 20px 0;
+        animation: slideInUp 1s ease-out;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 12px 30px;
+        background: #ff7f50;
+        color: white;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: background 0.3s ease;
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      .btn:hover {
+        background: #ff4500;
+      }
+
+      /* Posts Section */
+      .posts-section {
+        padding: 60px 20px;
+        background: #f9f9f9;
+      }
+
+      .posts-section h2 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5rem;
+        color: #333;
+      }
+
+      .posts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        max-width: 1200px;
+        margin: auto;
+      }
+
+      .post-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      .post-card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .post-card h3 {
+        font-size: 1.5rem;
+        margin: 15px;
+      }
+
+      .post-card p {
+        font-size: 1rem;
+        margin: 0 15px 20px;
+        color: #555;
+      }
+
+      .post-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInDown {
+        0% {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInUp {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .content h1 {
+          font-size: 2.5rem;
+        }
+        .content p {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Landing Section -->
+    <section class="landing">
+      <div class="content">
+        <h1>Welcome to Our Blog</h1>
+        <p>Discover amazing posts and articles</p>
+        <a href="#posts" class="btn">Explore Posts</a>
+      </div>
+    </section>
+
+    <!-- Posts Section -->
+    <section id="posts" class="posts-section">
+      <h2>Latest Posts</h2>
+      <div class="posts-container">
+        <!-- Post 1 -->
+        <div class="post-card">
+          <img
+            src="https://source.unsplash.com/random/400x200?tech"
+            alt="Post Image"
+          />
+          <h3>Technology Trends 2025</h3>
+          <p>
+            Discover the upcoming technology trends that will shape our future.
+          </p>
+        </div>
+        <!-- Post 2 -->
+        <div class="post-card">
+          <img
+            src="https://source.unsplash.com/random/400x200?nature"
+            alt="Post Image"
+          />
+          <h3>Nature's Beauty</h3>
+          <p>Experience the serene and untouched beauty of nature around us.</p>
+        </div>
+        <!-- Post 3 -->
+        <div class="post-card">
+          <img
+            src="https://source.unsplash.com/random/400x200?travel"
+            alt="Post Image"
+          />
+          <h3>Top Travel Destinations</h3>
+          <p>Check out the best travel destinations you must visit in 2025.</p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Animate posts on scroll
+      const posts = document.querySelectorAll(".post-card");
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = 1;
+              entry.target.style.transform = "translateY(0)";
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.2,
+        }
+      );
+
+      posts.forEach((post) => {
+        observer.observe(post);
+      });
+    </script>
+  </body>
+</html>
